@@ -79,7 +79,7 @@ function SceneCard({ p, s, i, style, onDragStart, onDrop }: { p: Project; s: Sce
           <button className="btn-icon h-7 w-7 hover:text-red-300" title={t('Supprimer', 'Delete')} onClick={() => editScene((pp) => { pp.scenes.splice(i, 1); pp.storyboardValidated = false; })}><Trash2 size={14} /></button>
         </div>
       </div>
-      <div className="grid gap-4 p-3 md:grid-cols-[minmax(0,300px)_1fr]">
+      <div className="grid gap-4 p-3 md:grid-cols-[minmax(0,240px)_1fr]">
         <div>
           <div className="relative overflow-hidden rounded-lg border border-white/[0.06]">
             <SceneThumb project={p} style={style} sceneId={s.id} />
@@ -106,7 +106,7 @@ function SceneCard({ p, s, i, style, onDragStart, onDrop }: { p: Project; s: Sce
           <Field label={t('Narration', 'Narration')}>
             <textarea className="textarea text-xs" rows={2} value={s.narration} onChange={(e) => up({ narration: e.target.value })} />
           </Field>
-          <div className="grid grid-cols-2 gap-2 sm:col-span-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 sm:col-span-2 2xl:grid-cols-4">
             <Field label={t('Durée (s)', 'Duration (s)')}><input type="number" step={0.5} min={1} max={60} className="input h-9 text-xs" value={s.duration} onChange={(e) => up({ duration: Math.max(1, Math.min(60, parseFloat(e.target.value) || 1)) })} /></Field>
             <Field label={t('Mise en page', 'Layout')}><select className="input h-9 text-xs" value={s.layout} onChange={(e) => up({ layout: e.target.value as SceneLayout })}>{LAYOUTS.map((o) => <option key={o.value} value={o.value} className="bg-ink-900">{t(o.fr, o.en)}</option>)}</select></Field>
             <Field label={t('Caméra', 'Camera')}><select className="input h-9 text-xs" value={s.camera} onChange={(e) => up({ camera: e.target.value as CameraMove })}>{CAMERAS.map((o) => <option key={o.value} value={o.value} className="bg-ink-900">{t(o.fr, o.en)}</option>)}</select></Field>

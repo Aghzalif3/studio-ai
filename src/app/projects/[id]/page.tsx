@@ -77,7 +77,7 @@ export default function Workspace({ params }: { params: Promise<{ id: string }> 
           ))}
         </nav>
       </header>
-      <div className={`flex-1 px-4 py-5 sm:px-6 ${showPlayer ? 'grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(340px,520px)]' : ''}`}>
+      <div className={`flex-1 px-4 py-5 sm:px-6 ${showPlayer ? 'grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(320px,440px)]' : ''}`}>
         <div className="min-w-0 animate-fade-up" key={tab}>
           {tab === 'storyboard' && <Storyboard style={style} />}
           {tab === 'editor' && <Editor style={style} player={player} />}

@@ -4,7 +4,6 @@ Studio de création vidéo IA **local d’abord** : idée → scénario → stor
 Tout le montage, le storyboard et le rendu fonctionnent **sans abonnement payant**. Les moteurs payants sont optionnels et
 leur coût estimé est affiché avant chaque génération.
 
-> État : en développement actif. Voir la section « Ce qui fonctionne » plus bas.
 
 ## Lancer sur Mac (Apple Silicon)
 1. Installer Node.js 20 ou plus récent : https://nodejs.org (ou `brew install node`).
@@ -18,6 +17,9 @@ leur coût estimé est affiché avant chaque génération.
 3. Ouvrir http://127.0.0.1:3210
 
 FFmpeg est fourni automatiquement par `npm install` (paquet `ffmpeg-static`).
+
+Vérifier ce qui est disponible sur votre Mac : `npm run doctor`.
+Version optimisée : `npm run build && npm start` (même adresse).
 
 ## Où mettre les clés API
 Dans l’application : **Paramètres › Clés API**. Les clés sont chiffrées (AES-256-GCM) dans `studio-data/secrets.enc.json`,
@@ -45,3 +47,31 @@ Tout est stocké dans `studio-data/` (projets, médias, rendus, clés chiffrées
 
 ## Licences
 Code de Studio AI. Voir `THIRD_PARTY_NOTICES.md` pour Lemo-Opuscar (MIT), les polices (OFL) et FFmpeg (GPL).
+
+## Ce qui fonctionne (testé)
+- Assistant de création (idée, texte, images, pub, TikTok, YouTube, animation) → scénario → storyboard modifiable
+  (ajout, suppression, duplication, réordonnancement par glisser-déposer, image régénérée ou importée, voix par scène).
+- Validation du storyboard obligatoire avant le rendu final (désactivable par projet).
+- Aperçu temps réel dans le navigateur, dessiné par le même moteur que l’export.
+- Montage multipiste : vidéo, effets, sous-titres, voix, musique, bruitages ; déplacer, rogner, couper, supprimer,
+  volume, vitesse, zoom/recadrage, position, rotation, filtres, caméra, transitions, annuler/rétablir.
+- Voix : Edge TTS (FR/BE/CA/CH, EN, ES, AR), voix macOS, eSpeak, ElevenLabs, OpenAI ; votre voix (micro ou fichier).
+- Sous-titres synchronisés, animés (7 styles), modifiables, mots-clés surlignés, export SRT/VTT, incrustation.
+- Musique originale et bruitages synthétisés, mixage automatique (ducking, normalisation ≈ −14 LUFS).
+- Export MP4 H.264 720p / 1080p / 4K, 24/30/60 i/s, barre de progression, temps restant, annulation, historique.
+- 110 styles visuels + styles personnalisés (couleurs, polices, logo, références), modèles réutilisables.
+- Clés API chiffrées, coût affiché et confirmé avant chaque génération payante.
+
+## Limites connues
+- Le « rédacteur hors-ligne » n’est pas une IA : il structure votre idée avec des modèles. Pour un vrai texte rédigé,
+  utilisez Ollama (gratuit, local) ou une API.
+- L’illustration procédurale dessine des fonds, formes et typographies animées, pas des images réalistes : pour de vraies
+  images, utilisez Stable Diffusion local, Pollinations ou une API.
+- Sans moteur image → vidéo (payant), les images sont animées par des mouvements de caméra, pas par un mouvement interne.
+- Edge TTS est un service non officiel : pour une publicité commerciale, préférez ElevenLabs ou votre propre voix.
+- Les moteurs en ligne (Edge, Pollinations, fal, Replicate…) n’ont pu être testés que sur une machine avec Internet.
+
+## Développement
+- `npm test` : tests automatiques (Vitest).
+- `npm run lint` : vérification TypeScript.
+- `npm run render:sample` : rendu d’une vidéo d’exemple en ligne de commande.

@@ -20,7 +20,7 @@ export const POST = handler(async (req: Request, { params }: { params: Promise<{
   // Groq / OpenRouter / Mistral free tiers are not billed; OpenAI and Anthropic are.
   const billed = engine === 'anthropic' || (engine === 'openai-compat' && settings.textModels.openaiCompat.provider === 'openai');
   const cost = billed ? estimateCost(engine, 1) : 0;
-  if (cost > 0 && settings.confirmPaid && !confirmCost) return json({ needsConfirmation: true, costUsd: cost }, 402);
+  if (cost > 0 && !confirmCost) return json({ needsConfirmation: true, costUsd: cost }, 402);
   const p0 = await getProject(id);
   if (!p0) return json({ error: 'Projet introuvable' }, 404);
   if (!p0.brief.idea.trim() && !p0.brief.subject.trim()) return json({ error: 'Décrivez votre idée avant de générer le scénario.' }, 400);

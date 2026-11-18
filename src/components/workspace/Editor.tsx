@@ -172,7 +172,7 @@ export function Editor({ style, player }: { style: StyleDef; player: ReturnType<
   return (
     <div className="space-y-4">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <PlayerView player={player} maxH="46vh" />
+        <PlayerView player={player} maxH="38vh" />
         <Inspector p={p} sel={sel} clip={selected} editTl={editTl} style={style} />
       </div>
       <div className="panel overflow-hidden">

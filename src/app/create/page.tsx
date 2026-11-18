@@ -48,6 +48,7 @@ function Wizard() {
     setB((x) => {
       const n = { ...x, ...(mode?.preset ?? {}), ...(tpl?.brief ?? {}), mode: mode?.id ?? x.mode };
       if (!tpl?.brief.aspect && !mode?.preset.aspect) n.aspect = platformDefaults(n.platform).aspect;
+      const st = sp.get('style'); if (st) n.styleId = st;
       return n;
     });
     if (mode?.id === 'ad' || tpl?.brief.mode === 'ad') setB((x) => ({ ...x, ad: x.ad ?? { product: '', brand: '', offer: '', cta: '', usp: '' } }));

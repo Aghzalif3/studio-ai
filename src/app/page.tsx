@@ -6,7 +6,7 @@ import { Page, Spinner } from '@/components/ui';
 import { ProjectCard, type ProjectSummary } from '@/components/ProjectCard';
 import { useI18n } from '@/lib/client/i18n';
 import { api, toast } from '@/lib/client/api';
-import { formatTime } from '@/lib/util';
+import { formatDate, formatTime } from '@/lib/util';
 
 interface Stats { projects: number; projectsDone: number; projectsInProgress: number; exports: number; generationSeconds: number; latest: ProjectSummary[]; inProgress: ProjectSummary[]; exportHistory: any[] }
 
@@ -25,7 +25,7 @@ const ACTIONS = [
 ];
 
 export default function Home() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [s, setS] = useState<Stats | null>(null);
   useEffect(() => { api<Stats>('/api/stats').then(setS).catch((e) => toast.error(e)); }, []);
 
@@ -85,7 +85,7 @@ export default function Home() {
               s.exportHistory.map((r) => (
                 <div key={r.id} className="flex items-center gap-3 p-3.5">
                   <span className={`h-2 w-2 rounded-full ${r.status === 'done' ? 'bg-emerald-400' : r.status === 'error' ? 'bg-red-400' : r.status === 'cancelled' ? 'bg-ink-400' : 'bg-amber-400 animate-pulse'}`} />
-                  <div className="min-w-0 flex-1"><div className="truncate text-sm">{r.projectName}</div><div className="text-xs text-ink-400">{r.resolution} · {r.fps} i/s · {new Date(r.createdAt).toLocaleString()}</div></div>
+                  <div className="min-w-0 flex-1"><div className="truncate text-sm">{r.projectName}</div><div className="text-xs text-ink-400">{r.resolution} · {r.fps} i/s · {formatDate(r.createdAt, lang)}</div></div>
                   {r.status === 'done' && <a href={`/api/renders/${r.id}/file?download`} className="btn-ghost btn-sm">MP4</a>}
                 </div>
               ))}

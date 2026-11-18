@@ -50,7 +50,7 @@ export function VoiceList({ engine, lang, value, onChange, sample, rate, pitch }
   const shown = showAll || !matching.length ? voices : matching;
   return (
     <div>
-      <div className="grid max-h-72 gap-1.5 overflow-y-auto pr-1 sm:grid-cols-2">
+      <div className="grid max-h-72 gap-1.5 overflow-y-auto pr-1 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
         {shown.map((v) => (
           <div key={v.id} className={`flex items-center gap-2 rounded-lg border px-2.5 py-2 transition ${value === v.id ? 'border-violet-400/70 bg-violet-500/10' : 'border-white/[0.06] hover:border-white/20'}`}>
             <button className="min-w-0 flex-1 text-left" onClick={() => onChange(v.id)}>

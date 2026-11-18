@@ -20,7 +20,7 @@ export function PageHeader({ title, subtitle, actions, kicker }: { title: string
 }
 
 export function Field({ label, hint, children, className = '' }: { label: string; hint?: React.ReactNode; children: React.ReactNode; className?: string }) {
-  return <label className={`block ${className}`}><span className="label">{label}</span>{children}{hint && <span className="mt-1.5 block text-xs text-ink-400">{hint}</span>}</label>;
+  return <div role="group" aria-label={label} className={`block ${className}`}><span className="label">{label}</span>{children}{hint && <span className="mt-1.5 block text-xs text-ink-400">{hint}</span>}</div>;
 }
 
 export function Select<T extends string>({ value, onChange, options, className = '' }: { value: T; onChange: (v: T) => void; options: { value: T; label: string }[]; className?: string }) {

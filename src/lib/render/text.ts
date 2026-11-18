@@ -168,7 +168,7 @@ export function drawSceneText(a: SceneTextArgs) {
       const maxPx = (isImg ? 64 : portrait ? 100 : 104) * u;
       const { px, lines } = fitText(g, text, fd, boxW, h * (isImg ? 0.22 : 0.5), maxPx, 28 * u, 1.12);
       const totalH = lines.length * px * 1.12;
-      const y0 = isImg ? h * (portrait ? 0.8 : 0.84) - totalH + px : h / 2 - totalH / 2 + px * 0.85;
+      const y0 = isImg ? h * (portrait ? 0.66 : 0.7) - totalH + px  /* above the caption zone */ : h / 2 - totalH / 2 + px * 0.85;
       if (isImg) color = '#ffffff';
       drawLines(lines, px, fd, marginX, y0, portrait || isImg ? 'center' : 'left', 0.15, 0.06, 1.12);
       break;
@@ -244,10 +244,11 @@ export function drawSceneText(a: SceneTextArgs) {
         const rad = bh / 2;
         g.moveTo(bx + rad, by); g.arcTo(bx + bw, by, bx + bw, by + bh, rad); g.arcTo(bx + bw, by + bh, bx, by + bh, rad); g.arcTo(bx, by + bh, bx, by, rad); g.arcTo(bx, by, bx + bw, by, rad); g.closePath(); g.fill();
         g.fillStyle = luminance(accent) > 0.55 ? '#111111' : '#ffffff';
-        g.font = `800 ${40 * u * bp}px ${fontStack(body)}`;
-        const lab = '→';
-        const lw = g.measureText(lab).width;
-        g.fillText(lab, w / 2 - lw / 2, by + bh / 2 + 14 * u * bp);
+        // Arrow drawn as a path (no dependency on a font glyph).
+        const ac = luminance(accent) > 0.55 ? '#111111' : '#ffffff';
+        const aw = 44 * u * bp, cx = w / 2 + Math.sin(T * 5) * 4 * u, cy = by + bh / 2;
+        g.strokeStyle = ac; g.lineWidth = 7 * u * bp; g.lineCap = 'round'; g.lineJoin = 'round';
+        g.beginPath(); g.moveTo(cx - aw / 2, cy); g.lineTo(cx + aw / 2, cy); g.moveTo(cx + aw / 2 - aw * 0.38, cy - aw * 0.38); g.lineTo(cx + aw / 2, cy); g.lineTo(cx + aw / 2 - aw * 0.38, cy + aw * 0.38); g.stroke();
       }
       break;
     }

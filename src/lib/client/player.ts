@@ -127,6 +127,9 @@ export function usePlayer(project: Project | null, style: StyleDef | null, opts:
     requestAnimationFrame(loop);
   }, [draw, pause]);
 
+  // Start on a frame where the first scene's text is visible rather than on the black first frame.
+  useEffect(() => { if (!project?.id) return; const t0 = Math.min(1.2, durRef.current); tRef.current = t0; setTime(t0); }, [project?.id]);
+
   const toggle = useCallback(() => (playRef.current ? pause() : play()), [pause, play]);
   useEffect(() => () => { playRef.current = null; }, []);
 

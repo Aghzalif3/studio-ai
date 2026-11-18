@@ -12,7 +12,7 @@ export const GET = handler(async () => {
   return json(all.map((p) => ({
     id: p.id, name: p.name, createdAt: p.createdAt, updatedAt: p.updatedAt, mode: p.brief.mode, styleId: p.brief.styleId, aspect: p.brief.aspect,
     scenes: p.scenes.length, duration: p.timeline.video.reduce((a, c) => Math.max(a, c.start + c.duration), 0), validated: p.storyboardValidated,
-    thumbnail: p.scenes.find((s) => s.imageAssetId) ? p.assets.find((a) => a.id === p.scenes.find((s) => s.imageAssetId)!.imageAssetId)?.file : undefined,
+    thumbnailAssetId: p.thumbnailAssetId ?? p.scenes.find((s) => s.imageAssetId)?.imageAssetId,
     generationSeconds: p.generationSeconds,
   })));
 });

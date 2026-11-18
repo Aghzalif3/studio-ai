@@ -7,7 +7,7 @@ import { api, paid, toast } from '@/lib/client/api';
 import type { usePlayer } from '@/lib/client/player';
 import { timelineDuration } from '@/lib/render/compose';
 import { ASPECT_SIZES } from '@/lib/types';
-import { formatBytes, formatTime } from '@/lib/util';
+import { formatBytes, formatDate, formatTime } from '@/lib/util';
 import { Field, Segmented, Spinner } from '../ui';
 
 interface Job { id: string; projectId: string; status: string; progress: number; phase: string; etaSec?: number; fpsRender?: number; resolution: string; fps: number; width: number; height: number; createdAt: string; sizeBytes?: number; elapsedSec?: number; error?: string; file?: string }
@@ -18,7 +18,7 @@ const PHASE: Record<string, [string, string]> = {
 };
 
 export function ExportTab({ player }: { player: ReturnType<typeof usePlayer> }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { project: p, flush } = useProject();
   const [res, setRes] = useState<'720p' | '1080p' | '4k'>('1080p');
   const [fps, setFps] = useState<24 | 30 | 60>(30);
@@ -70,7 +70,7 @@ export function ExportTab({ player }: { player: ReturnType<typeof usePlayer> }) 
           return (
             <div key={j.id} className="panel p-4">
               <div className="flex flex-wrap items-center gap-3">
-                <div className="min-w-0 flex-1"><div className="text-sm font-medium">{j.resolution} · {j.fps} i/s · {j.width}×{j.height}</div><div className="text-xs text-ink-400">{new Date(j.createdAt).toLocaleString()}</div></div>
+                <div className="min-w-0 flex-1"><div className="text-sm font-medium">{j.resolution} · {j.fps} i/s · {j.width}×{j.height}</div><div className="text-xs text-ink-400">{formatDate(j.createdAt, lang)}</div></div>
                 {running && <button className="btn-ghost btn-sm" onClick={() => api(`/api/renders/${j.id}`, { method: 'DELETE' }).then(refresh)}><X size={13} /> {t('Annuler', 'Cancel')}</button>}
                 {j.status === 'done' && <a className="btn-primary btn-sm" href={`/api/renders/${j.id}/file?download`}><Download size={13} /> {t('Télécharger', 'Download')}</a>}
                 {!running && <button className="btn-icon h-8 w-8 hover:text-red-300" title={t('Supprimer', 'Delete')} onClick={() => api(`/api/renders/${j.id}`, { method: 'DELETE' }).then(refresh)}><Trash2 size={14} /></button>}

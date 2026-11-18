@@ -65,3 +65,8 @@ export function formatBytes(n: number) {
   if (n < 1024 ** 3) return `${(n / 1024 ** 2).toFixed(1)} Mo`;
   return `${(n / 1024 ** 3).toFixed(2)} Go`;
 }
+
+/** Date + time in the interface language (Belgian French by default). */
+export function formatDate(iso: string, lang: 'fr' | 'en' = 'fr') {
+  return new Date(iso).toLocaleString(lang === 'fr' ? 'fr-BE' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
