@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #07070a;
+  --color-ink-900: #0c0c11;
+  --color-ink-850: #111118;
+  --color-ink-800: #16161f;
+  --color-ink-700: #1f1f2b;
+  --color-ink-600: #2a2a39;
+  --color-ink-500: #3a3a4d;
+  --color-ink-400: #5b5b72;
+  --color-ink-300: #8b8ba3;
+  --color-ink-200: #b9b9cc;
+  --color-ink-100: #e6e6ef;
+  --color-violet-glow: #8b5cf6;
+  --color-blue-glow: #3b82f6;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --animate-fade-up: fade-up .45s cubic-bezier(.2,.7,.2,1) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  @keyframes fade-up { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+  @keyframes shimmer { from { background-position: -200% 0 } to { background-position: 200% 0 } }
+}
+
+@font-face { font-family: "Inter"; src: url("/fonts/Inter.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Space Grotesk"; src: url("/fonts/SpaceGrotesk.ttf") format("truetype"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Playfair Display"; src: url("/fonts/PlayfairDisplay.ttf") format("truetype"); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: "Bebas Neue"; src: url("/fonts/BebasNeue.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Caveat"; src: url("/fonts/Caveat.ttf") format("truetype"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Press Start 2P"; src: url("/fonts/PressStart2P.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("/fonts/Montserrat.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Oswald"; src: url("/fonts/Oswald.ttf") format("truetype"); font-weight: 200 700; font-display: swap; }
+@font-face { font-family: "Archivo Black"; src: url("/fonts/ArchivoBlack.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("/fonts/IBMPlexMono.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "DM Serif Display"; src: url("/fonts/DMSerifDisplay.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Fredoka"; src: url("/fonts/Fredoka.ttf") format("truetype"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Cinzel"; src: url("/fonts/Cinzel.ttf") format("truetype"); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: "VT323"; src: url("/fonts/VT323.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Noto Naskh Arabic"; src: url("/fonts/NotoNaskhArabic.ttf") format("truetype"); font-weight: 400 700; font-display: swap; }
+
+:root { color-scheme: dark; }
+html, body { background: var(--color-ink-950); color: var(--color-ink-100); }
+body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+::selection { background: rgb(139 92 246 / .45); }
+* { scrollbar-width: thin; scrollbar-color: var(--color-ink-600) transparent; }
+
+@layer components {
+  .panel { @apply rounded-2xl border border-white/[0.06] bg-ink-900/80 backdrop-blur-sm; }
+  .panel-hi { @apply rounded-2xl border border-white/[0.08] bg-gradient-to-b from-ink-800 to-ink-900; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 h-10 text-sm font-medium transition-all duration-200 select-none disabled:opacity-40 disabled:pointer-events-none whitespace-nowrap; }
+  .btn-primary { @apply btn text-white bg-gradient-to-r from-violet-600 to-blue-600 shadow-[0_0_0_1px_rgba(255,255,255,.08)_inset,0_8px_24px_-8px_rgba(124,58,237,.6)] hover:brightness-110 active:scale-[.98]; }
+  .btn-ghost { @apply btn text-ink-200 hover:text-white hover:bg-white/[0.06]; }
+  .btn-outline { @apply btn border border-white/10 text-ink-100 hover:bg-white/[0.05] hover:border-white/20; }
+  .btn-danger { @apply btn text-red-300 border border-red-500/20 hover:bg-red-500/10; }
+  .btn-sm { @apply h-8 px-3 text-xs rounded-lg; }
+  .btn-icon { @apply btn h-9 w-9 px-0 text-ink-300 hover:text-white hover:bg-white/[0.06]; }
+  .input { @apply w-full h-10 rounded-xl bg-ink-850 border border-white/[0.08] px-3 text-sm text-ink-100 placeholder:text-ink-400 outline-none transition focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20; }
+  .textarea { @apply input h-auto py-2.5 leading-relaxed resize-y; }
+  .label { @apply block text-[11px] font-semibold uppercase tracking-[.12em] text-ink-300 mb-1.5; }
+  .chip { @apply inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-xs border border-white/10 text-ink-200 hover:border-white/25 hover:text-white transition cursor-pointer select-none; }
+  .chip-on { @apply border-violet-500/70 bg-violet-500/15 text-white; }
+  .badge { @apply inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider; }
+  .glow-text { @apply bg-gradient-to-r from-white via-violet-200 to-blue-300 bg-clip-text text-transparent; }
+}
+
+input[type=range] { accent-color: #8b5cf6; }
+.noise-bg { background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124,58,237,.18), transparent 60%), radial-gradient(ellipse 60% 40% at 100% 0%, rgba(59,130,246,.10), transparent 60%); }
+.skeleton { background: linear-gradient(90deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,.08) 50%, rgba(255,255,255,.03) 100%); background-size: 200% 100%; animation: var(--animate-shimmer); }

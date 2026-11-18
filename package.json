@@ -1,0 +1,47 @@
+{
+  "name": "studio-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "STUDIO AI — studio de création vidéo IA personnel (local-first)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "dev": "next dev -H 127.0.0.1 -p 3210",
+    "build": "next build",
+    "start": "next start -H 127.0.0.1 -p 3210",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "doctor": "tsx scripts/doctor.ts",
+    "render:sample": "tsx scripts/render-sample.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.10.0",
+    "@napi-rs/canvas": "^1.1.1",
+    "ffmpeg-static": "^5.3.0",
+    "ffprobe-static": "^3.1.0",
+    "lucide-react": "^1.75.0",
+    "msedge-tts": "^2.1.1",
+    "nanoid": "^6.0.2",
+    "next": "15.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.7",
+    "zustand": "^5.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/ffprobe-static": "^2.0.3",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "postcss": "^8.5.33",
+    "tailwindcss": "^4.3.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
+  },
+  "type": "module"
+}
