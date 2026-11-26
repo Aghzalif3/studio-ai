@@ -21,6 +21,32 @@ FFmpeg est fourni automatiquement par `npm install` (paquet `ffmpeg-static`).
 Vérifier ce qui est disponible sur votre Mac : `npm run doctor`.
 Version optimisée : `npm run build && npm start` (même adresse).
 
+## Montage auto par 16 agents (nouveau)
+Ouvre **http://127.0.0.1:3210/montage** (ou « Montage auto » dans le menu). Dépose une vidéo face caméra :
+16 agents la montent en direct sous tes yeux, puis tu modifies ce que tu veux et tu exportes.
+
+| Agent | Ce qu’il fait |
+|---|---|
+| `coupe-01`, `coupe-02` | Coupent les blancs (détection de parole sur l’audio) et retirent les « euh », « hum », « bah » |
+| `rythme-01` | Mesure le débit de parole et adapte la longueur des sous-titres |
+| `soustitres-01/02/03` | Découpent les phrases en sous-titres mot par mot et surlignent les mots forts |
+| `type-01` | Applique le style de typo (Gros orange, Bloc jaune, Néon, Sobre) |
+| `motion-01…04` | Posent lettres géantes, compteurs chiffrés (« 48 HEURES »), flèches, étiquettes et cadres de focus |
+| `zoom-01`, `cadrage-01` | Zooms d’impact sur les mots forts, recadrage au format (9:16, 16:9, 1:1, 4:5) |
+| `sfx-01`, `sfx-02` | Bruitages synthétisés (whoosh, impact, pop, clic…) calés sur les motions et les mots forts |
+| `style-01` | Étalonnage (Ciné orange, Contrasté, Noir et blanc, Naturel) |
+
+- **Transcription** : Whisper (modèle `whisper-base`) tourne **dans le navigateur**, sur ton Mac. Le modèle (~80 Mo)
+  est téléchargé une seule fois depuis Hugging Face puis gardé en cache. Sans Internet, colle le texte de la vidéo
+  dans *Réglages* : il est aligné automatiquement sur les passages parlés.
+- **Timeline multipiste** : V1 images (plans gardés, coupes cliquables et restaurables), V2 motions, T1 mots,
+  Z1 zooms, A1 forme d’onde de la voix, A2 bruitages. Glisser pour déplacer, cliquer pour modifier, Cmd+Z pour annuler.
+- **Export** : rendu dans le navigateur (MP4 H.264 sur Chrome et Safari, WebM sinon), en 720p ou 1080p, avec
+  sous-titres, motions et bruitages incrustés. L’export dure le temps de la vidéo : garde l’onglet visible.
+- Le montage en cours est **sauvegardé automatiquement** dans le navigateur (vidéo comprise).
+- Les agents sont des programmes spécialisés qui tournent en local : ce ne sont pas des modèles de langage, et
+  ils ne voient pas l’image (le recadrage reste centré, réglable à la main).
+
 ## Où mettre les clés API
 Dans l’application : **Paramètres › Clés API**. Les clés sont chiffrées (AES-256-GCM) dans `studio-data/secrets.enc.json`,
 ne quittent jamais le serveur local et ne sont jamais renvoyées au navigateur (seuls les 4 derniers caractères s’affichent).
