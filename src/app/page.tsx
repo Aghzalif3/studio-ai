@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { ArrowRight, Clapperboard, Film, FolderOpen, ImagePlay, LayoutTemplate, Megaphone, Palette, Smartphone, Sparkles, Type, Wand2, MonitorPlay, Clock, CheckCircle2, Loader, Upload } from 'lucide-react';
+import { ArrowRight, Clapperboard, Film, FolderOpen, ImagePlay, LayoutTemplate, Megaphone, Palette, Smartphone, Sparkles, Type, Wand2, MonitorPlay, Clock, CheckCircle2, Loader, Upload, Scissors } from 'lucide-react';
 import { Page, Spinner } from '@/components/ui';
 import { ProjectCard, type ProjectSummary } from '@/components/ProjectCard';
 import { useI18n } from '@/lib/client/i18n';
@@ -39,14 +39,15 @@ export default function Home() {
   return (
     <Page wide>
       <section className="relative mb-10 overflow-hidden rounded-3xl border border-white/[0.06] bg-gradient-to-br from-ink-850 via-ink-900 to-ink-950 p-6 sm:p-10">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-violet-600/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 right-40 h-72 w-72 rounded-full bg-blue-600/15 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-orange-600/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 right-40 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
         <div className="relative max-w-2xl">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-ink-200"><Clapperboard size={13} className="text-violet-300" /> {t('Local d’abord · moteurs gratuits par défaut', 'Local first · free engines by default')}</div>
           <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl"><span className="glow-text">{t('De l’idée à la vidéo', 'From idea to video')}</span><br />{t('en quelques minutes.', 'in minutes.')}</h1>
           <p className="mt-4 text-ink-300">{t('Scénario, storyboard, voix, sous-titres, musique et montage : tout se fait sur votre Mac. Les moteurs payants restent optionnels et leur coût est affiché avant chaque génération.', 'Script, storyboard, voice, captions, music and editing all run on your Mac. Paid engines are optional and their cost is shown before each generation.')}</p>
           <div className="mt-6 flex flex-wrap gap-2">
-            <Link href="/create" className="btn-primary h-11 px-5">{t('Créer une vidéo', 'Create a video')} <ArrowRight size={16} /></Link>
+            <Link href="/montage" className="btn-primary h-11 px-5"><Scissors size={16} /> {t('Monter ma vidéo avec 16 agents', 'Edit my video with 16 agents')} <ArrowRight size={16} /></Link>
+            <Link href="/create" className="btn-outline h-11 px-5">{t('Créer depuis une idée', 'Create from an idea')}</Link>
             <Link href="/templates" className="btn-outline h-11 px-5">{t('Partir d’un modèle', 'Start from a template')}</Link>
           </div>
         </div>

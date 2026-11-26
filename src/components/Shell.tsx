@@ -2,12 +2,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { AudioLines, Clapperboard, FolderOpen, Home, LayoutTemplate, Menu, Mic, Palette, Settings, Sparkles, Upload, X, CheckCircle2, AlertTriangle, Info } from 'lucide-react';
+import { AudioLines, Clapperboard, Scissors, FolderOpen, Home, LayoutTemplate, Menu, Mic, Palette, Settings, Sparkles, Upload, X, CheckCircle2, AlertTriangle, Info } from 'lucide-react';
 import { I18nProvider, useI18n } from '@/lib/client/i18n';
 import { useCostDialog, useToasts } from '@/lib/client/api';
 
 const NAV = [
   { href: '/', icon: Home, fr: 'Accueil', en: 'Home' },
+  { href: '/montage', icon: Scissors, fr: 'Montage auto', en: 'Auto edit' },
   { href: '/create', icon: Sparkles, fr: 'Créer', en: 'Create' },
   { href: '/projects', icon: FolderOpen, fr: 'Projets', en: 'Projects' },
   { href: '/templates', icon: LayoutTemplate, fr: 'Modèles', en: 'Templates' },
@@ -24,7 +25,7 @@ function Sidebar({ onNav }: { onNav?: () => void }) {
   return (
     <div className="flex h-full flex-col gap-1 p-3">
       <Link href="/" onClick={onNav} className="mb-5 flex items-center gap-2.5 px-2 pt-2">
-        <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-600 shadow-[0_6px_20px_-6px_rgba(124,58,237,.8)]">
+        <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 shadow-[0_6px_20px_-6px_rgba(255,107,44,.8)]">
           <Clapperboard size={18} className="text-white" />
         </div>
         <div className="leading-tight">
@@ -37,7 +38,7 @@ function Sidebar({ onNav }: { onNav?: () => void }) {
         return (
           <Link key={n.href} href={n.href} onClick={onNav}
             className={`group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition ${on ? 'bg-white/[0.07] text-white' : 'text-ink-300 hover:bg-white/[0.04] hover:text-white'}`}>
-            {on && <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-full bg-gradient-to-b from-violet-400 to-blue-500" />}
+            {on && <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-full bg-gradient-to-b from-orange-400 to-amber-400" />}
             <n.icon size={17} className={on ? 'text-violet-300' : 'text-ink-400 group-hover:text-ink-200'} />
             {t(n.fr, n.en)}
           </Link>
@@ -92,6 +93,9 @@ function Toasts() {
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
+  const path = usePathname();
+  // Le studio de montage occupe tout l'écran, sans la barre latérale.
+  if (path.startsWith('/montage')) return <I18nProvider>{children}<CostDialog /><Toasts /></I18nProvider>;
   return (
     <I18nProvider>
       <div className="noise-bg flex min-h-screen">
