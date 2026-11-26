@@ -31,6 +31,14 @@ export function Preview() {
   const seg = useRef(0);
   const lastT = useRef(0);
   const [W, H] = PREVIEW[aspect];
+  const box = useRef<HTMLDivElement>(null);
+  const [area, setArea] = useState({ w: 400, h: 400 });
+  useEffect(() => {
+    const el = box.current; if (!el) return;
+    const ro = new ResizeObserver(() => setArea({ w: el.clientWidth - 24, h: el.clientHeight - 24 })); ro.observe(el); return () => ro.disconnect();
+  }, []);
+  const k = Math.max(0.05, Math.min(area.w / W, area.h / H));
+  const fit = { w: Math.floor(W * k), h: Math.floor(H * k) };
 
   const draw = (t: number) => {
     const c = canvas.current, v = video.current; if (!c) return;
@@ -103,9 +111,9 @@ export function Preview() {
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="relative flex min-h-0 flex-1 items-center justify-center p-3">
+      <div ref={box} className="relative flex min-h-0 flex-1 items-center justify-center p-3">
         {media && <video ref={video} src={media.url} playsInline preload="auto" className="pointer-events-none absolute h-px w-px opacity-0" onLoadedData={() => draw(useMontage.getState().time)} />}
-        <div className="relative h-full max-h-full" style={{ aspectRatio: `${W} / ${H}` }}>
+        <div className="relative" style={{ width: fit.w, height: fit.h }}>
           <canvas ref={canvas} width={W} height={H} className="h-full w-full rounded-lg bg-black shadow-[0_20px_60px_-20px_rgba(0,0,0,.9)]" />
           {cursor && running && <AgentCursor key={cursor.agent} {...cursor} />}
           {running && <div className="pointer-events-none absolute inset-0 rounded-lg ring-2 ring-orange-500/60 animate-pulse" />}
